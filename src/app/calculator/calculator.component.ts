@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Mode } from '../mode';
+import { ModeService } from '../mode.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-calculator',
@@ -7,10 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalculatorComponent implements OnInit 
 {
+  private modeId: number = 1;
+  public mode!: Mode;
+  constructor(private route: ActivatedRoute, private modeService: ModeService) {}
 
-  constructor() { }
+  ngOnInit(): void 
+  {
+    this.getMode();
+  }
 
-  ngOnInit(): void {
+  incrementMode(): void
+  {
+    ++this.modeId;
+    if(this.modeId % 2 === 0) this.modeId = 2;
+    else this.modeId = this.modeId % 2;
+    this.getMode();
+  }
+
+  getMode(): void
+  {
+    this.modeService.getMode(this.modeId).subscribe(mode => this.mode = mode);
+    console.log(this.modeId);
   }
 
 }

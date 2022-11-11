@@ -1,12 +1,19 @@
 <div class="calculator">
 
-  <input type="text" class="calculator-screen" value="0" disabled />
+  <input type="text" class="calculator-screen" value="0" disabled/>
   <br>
-  <span><i><small></small></i></span>
+  <span *ngIf="mode">
+    <i>{{mode.name}}</i>
+  </span>
 
   <div class="calculator-keys">
 
-    <button type="button">Mode</button>
+    <button type="button" (click)="incrementMode()">Mode</button>
+
+    <span *ngIf="mode.name === 'Scientific'">
+      <button type="button" class="operator">&pi;</button>
+      <button type="button" class="operator" value="2.71828183">e</button>
+    </span>
 
     <button type="button" class="operator" value="+">+</button>
     <button type="button" class="operator" value="-">-</button>
