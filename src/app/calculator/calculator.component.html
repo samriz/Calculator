@@ -1,9 +1,9 @@
 <div class="calculator">
 
-  <input type="text" class="calculator-screen" value="0" disabled/>
+  <input type="text" class="calculator-screen" [(ngModel)]="value" disabled/>
   <br>
   <span *ngIf="mode">
-    <i>{{mode.name}}</i>
+    <p>{{mode.name}}</p>
   </span>
 
   <div class="calculator-keys">

@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class CalculatorComponent implements OnInit 
 {
   private modeId: number = 1;
+  public value: number = 0;
   public mode!: Mode;
   constructor(private route: ActivatedRoute, private modeService: ModeService) {}
 
