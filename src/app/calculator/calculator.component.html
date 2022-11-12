@@ -10,10 +10,8 @@
 
     <button type="button" (click)="incrementMode()">Mode</button>
 
-    <span *ngIf="mode.name === 'Scientific'">
-      <button type="button" class="operator" value="3.141592653589793238">&pi;</button>
-      <button type="button" class="operator" value="2.71828183">e</button>
-    </span>
+    <button *ngIf="mode.name === 'Scientific'" type="button" class="operator" value="3.141592653589793238">&pi;</button>
+    <button *ngIf="mode.name === 'Scientific'" type="button" class="operator" value="2.71828183">e</button>
 
     <button type="button" class="operator" value="+">+</button>
     <button type="button" class="operator" value="-">-</button>
