@@ -1,6 +1,6 @@
 <div class="calculator">
 
-  <input type="text" class="calculator-screen" [(ngModel)]="value" disabled/>
+  <input type="text" class="calculator-screen" [value]="this.calcValue" disabled/>
   <br>
   <span *ngIf="mode">
     <i>{{mode.name}}</i>
@@ -10,10 +10,10 @@
 
     <button type="button" (click)="incrementMode()">Mode</button>
 
-    <button *ngIf="mode.name === 'Scientific'" type="button" class="operator" value="3.141592653589793238">&pi;</button>
-    <button *ngIf="mode.name === 'Scientific'" type="button" class="operator" value="2.71828183">e</button>
+    <button *ngIf="mode.name === 'Scientific'" type="button" class="operator" value="3.141592653589793238" (click)="this.changeValue('3.141592653589793238')">&pi;</button>
+    <button *ngIf="mode.name === 'Scientific'" type="button" class="operator" value="2.71828183" (click)="this.changeValue('2.71828183')">e</button>
 
-    <button type="button" class="operator" value="+">+</button>
+    <button type="button" class="operator" value="+" (click)="this.changeValue('+')">+</button>
     <button type="button" class="operator" value="-">-</button>
     <button type="button" class="operator" value="*">&times;</button>
     <button type="button" class="operator" value="/">&divide;</button>
@@ -32,7 +32,7 @@
 
     <button type="button" value="0">0</button>
     <button type="button" class="decimal" value=".">.</button>
-    <button type="button" class="all-clear" value="all-clear">AC</button>
+    <button type="button" class="all-clear" value="all-clear" (click)="this.clear()">AC</button>
 
     <button type="button" class="equal-sign" value="=">=</button>
 
