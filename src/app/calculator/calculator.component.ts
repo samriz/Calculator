@@ -28,15 +28,27 @@ export class CalculatorComponent implements OnInit
     this.getMode();
   }
 
-  changeValue(val:string):void
+  changeValue(val:string | number):void
   {
-    this.calcValue += val;
+    if(typeof val === "string") this.calcValue += val;
+    if (typeof val === "number") this.calcValue += val.toString();
+    console.log()
   }
 
   getMode(): void
   {
     this.modeService.getMode(this.modeId).subscribe(mode => this.mode = mode);
     console.log(this.modeId);
+  }
+
+  getResult(): void
+  {
+    console.log(this.calcValue);
+    //let result = Number(this.calcValue);
+    let result = parseFloat(this.calcValue);
+    console.log(result);
+    this.calcValue = result.toString();
+    console.log(this.calcValue);
   }
 
   clear():void

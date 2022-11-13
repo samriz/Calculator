@@ -10,31 +10,31 @@
 
     <button type="button" (click)="incrementMode()">Mode</button>
 
-    <button *ngIf="mode.name === 'Scientific'" type="button" class="operator" value="3.141592653589793238" (click)="this.changeValue('3.141592653589793238')">&pi;</button>
-    <button *ngIf="mode.name === 'Scientific'" type="button" class="operator" value="2.71828183" (click)="this.changeValue('2.71828183')">e</button>
+    <button *ngIf="mode.name === 'Scientific'" type="button" class="operator" value="3.141592653589793238" (click)="this.changeValue(3.141592653589793238)">&pi;</button>
+    <button *ngIf="mode.name === 'Scientific'" type="button" class="operator" value="2.71828183" (click)="this.changeValue(2.71828183)">e</button>
 
     <button type="button" class="operator" value="+" (click)="this.changeValue('+')">+</button>
-    <button type="button" class="operator" value="-">-</button>
-    <button type="button" class="operator" value="*">&times;</button>
-    <button type="button" class="operator" value="/">&divide;</button>
+    <button type="button" class="operator" value="-" (click)="this.changeValue('-')">-</button>
+    <button type="button" class="operator" value="*" (click)="this.changeValue('*')">&times;</button>
+    <button type="button" class="operator" value="/" (click)="this.changeValue('/')">&divide;</button>
 
-    <button type="button" value="7">7</button>
-    <button type="button" value="8">8</button>
-    <button type="button" value="9">9</button>
+    <button type="button" value="7" (click)="this.changeValue(7)">7</button>
+    <button type="button" value="8" (click)="this.changeValue(8)">8</button>
+    <button type="button" value="9" (click)="this.changeValue(9)">9</button>
 
-    <button type="button" value="4">4</button>
-    <button type="button" value="5">5</button>
-    <button type="button" value="6">6</button>
+    <button type="button" value="4" (click)="this.changeValue(4)">4</button>
+    <button type="button" value="5" (click)="this.changeValue(5)">5</button>
+    <button type="button" value="6" (click)="this.changeValue(6)">6</button>
 
-    <button type="button" value="1">1</button>
-    <button type="button" value="2">2</button>
-    <button type="button" value="3">3</button>
+    <button type="button" value="1" (click)="this.changeValue(1)">1</button>
+    <button type="button" value="2" (click)="this.changeValue(2)">2</button>
+    <button type="button" value="3" (click)="this.changeValue(3)">3</button>
 
-    <button type="button" value="0">0</button>
-    <button type="button" class="decimal" value=".">.</button>
+    <button type="button" value="0" (click)="this.changeValue(0)">0</button>
+    <button type="button" class="decimal" value="." (click)="this.changeValue('+')">.</button>
     <button type="button" class="all-clear" value="all-clear" (click)="this.clear()">AC</button>
 
-    <button type="button" class="equal-sign" value="=">=</button>
+    <button type="button" class="equal-sign" value="=" (click)="this.getResult()">=</button>
 
   </div>
 </div>
