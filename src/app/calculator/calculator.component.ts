@@ -10,9 +10,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CalculatorComponent implements OnInit 
 {
-  private modeId: number = 1;
-  public calcValue: string = "";
+  public displayValue: string = "0";
   public mode!: Mode;
+
+  private modeId: number = 1;
+  private firstOperand: number | null = null;
+  private operator: string | null = null;
+  private waitForSecondNumber: boolean = false;
+
   constructor(private route: ActivatedRoute, private modeService: ModeService) {}
 
   ngOnInit(): void 
@@ -28,32 +33,85 @@ export class CalculatorComponent implements OnInit
     this.getMode();
   }
 
-  changeValue(val:string | number):void
-  {
-    if(typeof val === "string") this.calcValue += val;
-    if (typeof val === "number") this.calcValue += val.toString();
-    console.log()
-  }
-
   getMode(): void
   {
     this.modeService.getMode(this.modeId).subscribe(mode => this.mode = mode);
-    console.log(this.modeId);
   }
 
-  getResult(): void
+  public getNumber(v: string){
+    console.log(v);
+    if(this.waitForSecondNumber)
+    {
+      this.displayValue = v;
+      this.waitForSecondNumber = false;
+    }else{
+      this.displayValue === '0'? this.displayValue = v: this.displayValue += v;
+
+    }
+  }
+
+  getDecimal(){
+    if(!this.displayValue.includes('.')){
+        this.displayValue += '.'; 
+    }
+  }
+
+  doCalculation(op: string , secondOp: number) : number
   {
-    console.log(this.calcValue);
-    //let result = Number(this.calcValue);
-    let result = parseFloat(this.calcValue);
-    console.log(result);
-    this.calcValue = result.toString();
-    console.log(this.calcValue);
+    let result = 0;
+    if(this.firstOperand !== null)
+    {
+      switch (op)
+      {
+        case '+':
+          this.firstOperand += secondOp;
+          result = this.firstOperand;
+          break;
+        case '-': 
+          this.firstOperand -= secondOp;
+          result = this.firstOperand;
+          break;
+        case '*': 
+          this.firstOperand *= secondOp;
+          result = this.firstOperand;
+          break; 
+        case '/': 
+          this.firstOperand /= secondOp;
+          result = this.firstOperand;
+          break; 
+        case '=':
+          result = secondOp;
+      }
+    }
+    return result;
   }
-
-  clear():void
+  getOperation(op: string)
   {
-    this.calcValue = "";
+    console.log(op);
+
+    if(this.firstOperand === null)
+    {
+      this.firstOperand = parseFloat(this.displayValue);
+
+    }
+    else if(this.operator)
+    {
+      const result = this.doCalculation(this.operator , parseFloat(this.displayValue))
+      this.displayValue = String(result);
+      this.firstOperand = result;
+    }
+    this.operator = op;
+    this.waitForSecondNumber = true;
+
+    console.log(this.firstOperand);
+ 
   }
 
+  clear()
+  {
+    this.displayValue = '0';
+    this.firstOperand = null;
+    this.operator = null;
+    this.waitForSecondNumber = false;
+  }
 }
