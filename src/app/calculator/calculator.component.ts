@@ -38,78 +38,74 @@ export class CalculatorComponent implements OnInit
     this.modeService.getMode(this.modeId).subscribe(mode => this.mode = mode);
   }
 
-  public getNumber(v: string){
-    console.log(v);
+  getNumber(value: string)
+  {
+    console.log(`value: ${value}`);
     if(this.waitForSecondNumber)
     {
-      this.displayValue = v;
+      this.displayValue = value;
       this.waitForSecondNumber = false;
-    }else{
-      this.displayValue === '0'? this.displayValue = v: this.displayValue += v;
+    }
+    else this.displayValue === '0'? this.displayValue = value: this.displayValue += value;
+  }
 
+  getDecimal()
+  {
+    if(!this.displayValue.includes('.'))
+    {
+      this.displayValue += '.';
     }
   }
 
-  getDecimal(){
-    if(!this.displayValue.includes('.')){
-        this.displayValue += '.'; 
-    }
-  }
-
-  doCalculation(op: string , secondOp: number) : number
+  calculateAndGetResult(operator: string , secondOperand: number) : number
   {
     let result = 0;
     if(this.firstOperand !== null)
     {
-      switch (op)
+      switch (operator)
       {
         case '+':
-          this.firstOperand += secondOp;
+          this.firstOperand += secondOperand;
           result = this.firstOperand;
           break;
         case '-': 
-          this.firstOperand -= secondOp;
+          this.firstOperand -= secondOperand;
           result = this.firstOperand;
           break;
         case '*': 
-          this.firstOperand *= secondOp;
+          this.firstOperand *= secondOperand;
           result = this.firstOperand;
           break; 
         case '/': 
-          this.firstOperand /= secondOp;
+          this.firstOperand /= secondOperand;
           result = this.firstOperand;
           break; 
         case '=':
-          result = secondOp;
+          result = secondOperand;
       }
     }
     return result;
   }
-  getOperation(op: string)
+
+  getOperation(operator: string)
   {
-    console.log(op);
-
-    if(this.firstOperand === null)
-    {
-      this.firstOperand = parseFloat(this.displayValue);
-
-    }
+    console.log(`operator: ${operator}`);
+    if(this.firstOperand === null) this.firstOperand = parseFloat(this.displayValue);
     else if(this.operator)
     {
-      const result = this.doCalculation(this.operator , parseFloat(this.displayValue))
-      this.displayValue = String(result);
+      let result = this.calculateAndGetResult(this.operator , parseFloat(this.displayValue))
+      this.displayValue = result.toString();
       this.firstOperand = result;
     }
-    this.operator = op;
+    this.operator = operator;
     this.waitForSecondNumber = true;
 
-    console.log(this.firstOperand);
- 
+    console.log(`first operand: ${this.firstOperand}`);
   }
 
   clear()
   {
-    this.displayValue = '0';
+    this.displayValue = "0";
     this.firstOperand = null;
     this.operator = null;
     this.waitForSecondNumber = false;
